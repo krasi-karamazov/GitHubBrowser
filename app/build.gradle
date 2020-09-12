@@ -1,0 +1,112 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: "androidx.navigation.safeargs.kotlin"
+apply from: '../gradleScripts/deps.gradle'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.1"
+
+    defaultConfig {
+        applicationId "kpk.dev.githubbrowser"
+        minSdkVersion 16
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    androidExtensions {
+        features = ["parcelize"]
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+        exclude("META-INF/*.kotlin_module")
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    // Kotlin specific dependencies
+    implementation kotlinDependencies.kotlinStdlib
+    implementation kotlinDependencies.coroutinesCore
+    implementation kotlinDependencies.coroutinesAndroid
+
+    // Core Android dependencies
+    implementation androidxDependencies.core
+    implementation androidxDependencies.appCompat
+    implementation androidxDependencies.constraintLayout
+    implementation androidxDependencies.navigationFragment
+    implementation androidxDependencies.recyclerView
+    implementation androidxDependencies.legacy
+    implementation androidxDependencies.lifecycleExtensions
+
+    // UI
+    implementation utilLibs.circleImageView
+
+    // Networking
+    implementation networkingDependencies.moshi
+    implementation project(path: ':data')
+    implementation project(path: ':domain')
+    implementation project(path: ':presentation')
+    kapt networkingDependencies.moshiAnnotation
+    implementation networkingDependencies.okhttp
+    implementation networkingDependencies.okhttpLoggingInterceptor
+    implementation (networkingDependencies.picasso){
+        exclude group: "com.android.support"
+    }
+
+    //Room
+    implementation roomDependencies.roomCore
+    implementation roomDependencies.roomKapt
+    implementation roomDependencies.roomCommon
+
+    // Android KTX
+    implementation androidKtx.activityKtx
+    implementation androidKtx.fragmentKtx
+    implementation androidKtx.runtimeKtx
+    implementation androidKtx.navigationKtx
+    implementation androidKtx.liveDataKtx
+
+    // Test
+    testImplementation testing.junit
+    androidTestImplementation testing.junitAndroid
+    androidTestImplementation testing.espresso
+    testImplementation testing.mockk
+    testImplementation testing.coroutinesTest
+    testImplementation testing.androidCoreTest
+
+    // Since these are alpha dependencies and subject to change they will remain outside of the
+    // dependencies.gradle script till they reach 1.0.0
+    implementation "com.google.dagger:hilt-android:2.28.3-alpha"
+    kapt "com.google.dagger:hilt-android-compiler:2.28.3-alpha"
+    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02'
+    kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
+}

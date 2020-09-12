@@ -1,0 +1,61 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply from: '../gradleScripts/deps.gradle'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.1"
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation kotlinDependencies.kotlinStdlib
+    implementation kotlinDependencies.coroutinesCore
+    implementation kotlinDependencies.coroutinesAndroid
+    implementation networkingDependencies.moshi
+    implementation networkingDependencies.moshiConverter
+    implementation networkingDependencies.retrofit
+    implementation networkingDependencies.okhttp
+    implementation networkingDependencies.okhttpLoggingInterceptor
+    kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.9.3'
+    implementation project(path: ':domain')
+    implementation roomDependencies.roomCore
+    kapt roomDependencies.roomKapt
+    implementation roomDependencies.roomCommon
+
+    implementation 'com.google.dagger:hilt-android:2.28.3-alpha'
+    kapt 'com.google.dagger:hilt-android-compiler:2.28.3-alpha'
+    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02'
+    kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
+    // Test
+    testImplementation testing.junit
+    androidTestImplementation testing.junitAndroid
+    androidTestImplementation testing.espresso
+    testImplementation testing.mockk
+    testImplementation testing.coroutinesTest
+    testImplementation testing.androidCoreTest
+}
