@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_github_browser">
+    <fragment
+        android:id="@+id/repositories_fragment"
+        android:name="kpk.dev.presentation.ui.fragment.repositories.RepositoriesFragment"
+        tools:layout="@layout/fragment_repositories">
+        <action
+            android:id="@+id/navigate_to_details_action"
+            app:destination="@+id/details_fragment"
+            app:enterAnim="@anim/enter"
+            app:exitAnim="@anim/exit"
+            app:popEnterAnim="@anim/pop_enter"
+            app:popExitAnim="@anim/pop_exit" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/details_fragment"
+        android:name="kpk.dev.presentation.ui.fragment.commits.CommitsFragment"
+        tools:layout="@layout/fragment_commits">
+        <argument
+            android:name="repoName"
+            app:argType="com.kpk.presentation.ui.model.SupportDeskUIModel" />
+    </fragment>
+</navigation>

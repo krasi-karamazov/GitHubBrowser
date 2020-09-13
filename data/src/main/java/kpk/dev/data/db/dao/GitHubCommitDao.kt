@@ -9,8 +9,8 @@ interface GitHubCommitDao : BaseDao<GitHubBrowserEntity.Commit> {
     @Query("select * from commits where id = :id")
     override fun select(id: Long): GitHubBrowserEntity.Commit
 
-    @Query("select * from commits where id = :id")
-    fun selectByRepoId(id: Long): List<GitHubBrowserEntity.Commit>
+    @Query("select * from commits where repo_name = :repoName")
+    fun selectByRepoName(repoName: String): List<GitHubBrowserEntity.Commit>
 
     @Query("select * from commits")
     override fun select(): List<GitHubBrowserEntity.Commit>

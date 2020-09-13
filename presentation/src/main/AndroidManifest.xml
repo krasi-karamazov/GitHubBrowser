@@ -1,5 +1,3 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="kpk.dev.presentation">
+<manifest package="kpk.dev.presentation">
 
-    /
 </manifest>

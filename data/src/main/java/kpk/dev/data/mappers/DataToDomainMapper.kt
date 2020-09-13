@@ -1,23 +1,26 @@
 package kpk.dev.data.mappers
 
 import kpk.dev.data.db.tables.GitHubBrowserEntity
-import kpk.dev.domain.domain.entity.CommitItem
-import kpk.dev.domain.domain.entity.GitHubRepoItem
+import kpk.dev.domain.entity.CommitItem
+import kpk.dev.domain.entity.GitHubRepoItem
 
 fun GitHubBrowserEntity.Repository.map() = GitHubRepoItem(
     id,
     name,
-    private,
-    starts,
+    isPrivate,
+    stars,
     watchers,
     forks,
     language,
-    emptyList()
+    emptyList(),
+    image,
+    ownerName
 )
 
-fun GitHubBrowserEntity.Commit.map() = CommitItem(
+fun GitHubBrowserEntity.Commit.map(repoName: String) = CommitItem(
     author,
     date,
     message,
-    hash
+    hash,
+    repoName
 )

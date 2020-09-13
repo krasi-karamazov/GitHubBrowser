@@ -56,52 +56,15 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     // Kotlin specific dependencies
     implementation kotlinDependencies.kotlinStdlib
-    implementation kotlinDependencies.coroutinesCore
-    implementation kotlinDependencies.coroutinesAndroid
 
-    // Core Android dependencies
-    implementation androidxDependencies.core
-    implementation androidxDependencies.appCompat
-    implementation androidxDependencies.constraintLayout
-    implementation androidxDependencies.navigationFragment
-    implementation androidxDependencies.recyclerView
-    implementation androidxDependencies.legacy
-    implementation androidxDependencies.lifecycleExtensions
-
-    // UI
-    implementation utilLibs.circleImageView
-
-    // Networking
-    implementation networkingDependencies.moshi
+    // Modules
     implementation project(path: ':data')
     implementation project(path: ':domain')
     implementation project(path: ':presentation')
-    kapt networkingDependencies.moshiAnnotation
-    implementation networkingDependencies.okhttp
-    implementation networkingDependencies.okhttpLoggingInterceptor
-    implementation (networkingDependencies.picasso){
-        exclude group: "com.android.support"
-    }
-
-    //Room
+    implementation androidxDependencies.appCompat
+    // Room
     implementation roomDependencies.roomCore
-    implementation roomDependencies.roomKapt
-    implementation roomDependencies.roomCommon
 
-    // Android KTX
-    implementation androidKtx.activityKtx
-    implementation androidKtx.fragmentKtx
-    implementation androidKtx.runtimeKtx
-    implementation androidKtx.navigationKtx
-    implementation androidKtx.liveDataKtx
-
-    // Test
-    testImplementation testing.junit
-    androidTestImplementation testing.junitAndroid
-    androidTestImplementation testing.espresso
-    testImplementation testing.mockk
-    testImplementation testing.coroutinesTest
-    testImplementation testing.androidCoreTest
 
     // Since these are alpha dependencies and subject to change they will remain outside of the
     // dependencies.gradle script till they reach 1.0.0
