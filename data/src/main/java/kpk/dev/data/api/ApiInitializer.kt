@@ -28,5 +28,5 @@ class ApiInitializer @Inject constructor() {
             .build()
     }
 
-    fun getApiService() = retrofitInstance.create(ApiService::class.java)
+    fun getApiService(): ApiService = retrofitInstance.create(ApiService::class.java)
 }

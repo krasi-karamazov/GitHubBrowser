@@ -6,7 +6,7 @@ import kpk.dev.domain.entity.ResponseModel
 
 interface IGitHubBrowserRemoteDataSource {
 
-    fun getRepositories(user: String): ResponseModel<List<GitHubRepoItem>>
+    suspend fun getRepositories(user: String): ResponseModel<List<GitHubRepoItem>>
 
-    fun getCommits(user: String, repoName: String):  ResponseModel<List<CommitItem>>
+    suspend fun getCommits(user: String, repoName: String):  ResponseModel<List<CommitItem>>
 }

@@ -9,12 +9,12 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import kpk.dev.presentation.BR
 import kpk.dev.presentation.base.BaseViewModel
+import kpk.dev.presentation.base.ItemClickHandlerViewModel
 
-class UniversalRecyclerViewAdapter<T : OnClickEvent>(
-    private val viewModel: BaseViewModel,
+class UniversalRecyclerViewAdapter<T : OnClickAction>(
+    private val viewModel: ItemClickHandlerViewModel<T>,
     private val items: ObservableArrayList<T>,
-    private val itemLayoutId: Int,
-    private var onItemClick: (T) -> Unit
+    private val itemLayoutId: Int
 ) : RecyclerView.Adapter<UniversalRecyclerViewAdapter.RecyclerItemViewHolder<T>>() {
 
     init {
@@ -60,7 +60,6 @@ class UniversalRecyclerViewAdapter<T : OnClickEvent>(
     override fun onBindViewHolder(holder: RecyclerItemViewHolder<T>, position: Int) {
         val item = items[position]
         holder.bind(item)
-        item.onClick = { onItemClick(item) }
     }
 
     class RecyclerItemViewHolder<T>(
@@ -69,8 +68,8 @@ class UniversalRecyclerViewAdapter<T : OnClickEvent>(
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: T) {
-            /*binding.setVariable(BR.viewModel, viewModel)
-            binding.setVariable(BR.supportDeskItem, item)*/
+            binding.setVariable(BR.viewModel, viewModel)
+            binding.setVariable(BR.item, item)
             binding.executePendingBindings()
         }
     }

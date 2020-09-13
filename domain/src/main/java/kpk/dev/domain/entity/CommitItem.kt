@@ -6,4 +6,4 @@ data class CommitItem(
     val message: String,
     val hash: String,
     val repoName: String
-) : DomainEntity
+)

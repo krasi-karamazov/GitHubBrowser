@@ -73,7 +73,7 @@ sealed class Dto {
         @Json(name = "has_wiki")
         val hasWiki: Boolean,
         @Json(name = "homepage")
-        val homepage: String,
+        val homepage: String?,
         @Json(name = "hooks_url")
         val hooksUrl: String,
         @Json(name = "html_url")
@@ -91,17 +91,17 @@ sealed class Dto {
         @Json(name = "labels_url")
         val labelsUrl: String,
         @Json(name = "language")
-        val language: String,
+        val language: String?,
         @Json(name = "languages_url")
         val languagesUrl: String,
         @Json(name = "license")
-        val license: License,
+        val license: License?,
         @Json(name = "merges_url")
         val mergesUrl: String,
         @Json(name = "milestones_url")
         val milestonesUrl: String,
         @Json(name = "mirror_url")
-        val mirrorUrl: Any,
+        val mirrorUrl: String?,
         @Json(name = "name")
         val name: String,
         @Json(name = "node_id")

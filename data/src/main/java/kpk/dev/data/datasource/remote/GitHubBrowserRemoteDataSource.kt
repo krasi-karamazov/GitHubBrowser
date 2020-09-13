@@ -9,7 +9,7 @@ import kpk.dev.domain.entity.ResponseModel
 import javax.inject.Inject
 
 class GitHubBrowserRemoteDataSource @Inject constructor (private val apiInitializer: ApiInitializer) : IGitHubBrowserRemoteDataSource {
-    override fun getRepositories(user: String): ResponseModel<List<GitHubRepoItem>> {
+    override suspend fun getRepositories(user: String): ResponseModel<List<GitHubRepoItem>> {
         val list: List<Dto.RepoEntity>? = apiInitializer.getApiService().getRepositoriesForUser(user)
         return if (!list.isNullOrEmpty()) {
             ResponseModel.Success(list.map {
@@ -20,7 +20,7 @@ class GitHubBrowserRemoteDataSource @Inject constructor (private val apiInitiali
         }
     }
 
-    override fun getCommits(user: String, repoName: String): ResponseModel<List<CommitItem>> {
+    override suspend fun getCommits(user: String, repoName: String): ResponseModel<List<CommitItem>> {
         val list: List<Dto.CommitEntity>? = apiInitializer.getApiService().getCommitsForUserAndRepo(user, repoName)
         return if (!list.isNullOrEmpty()) {
             ResponseModel.Success(list.map {

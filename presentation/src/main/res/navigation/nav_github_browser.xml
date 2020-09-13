@@ -2,14 +2,15 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_github_browser">
+    android:id="@+id/nav_github_browser"
+    app:startDestination="@+id/repositories_fragment">
     <fragment
         android:id="@+id/repositories_fragment"
         android:name="kpk.dev.presentation.ui.fragment.repositories.RepositoriesFragment"
         tools:layout="@layout/fragment_repositories">
         <action
-            android:id="@+id/navigate_to_details_action"
-            app:destination="@+id/details_fragment"
+            android:id="@+id/navigate_to_commits_action"
+            app:destination="@+id/commits_fragment"
             app:enterAnim="@anim/enter"
             app:exitAnim="@anim/exit"
             app:popEnterAnim="@anim/pop_enter"
@@ -17,11 +18,11 @@
     </fragment>
 
     <fragment
-        android:id="@+id/details_fragment"
+        android:id="@+id/commits_fragment"
         android:name="kpk.dev.presentation.ui.fragment.commits.CommitsFragment"
         tools:layout="@layout/fragment_commits">
         <argument
             android:name="repoName"
-            app:argType="com.kpk.presentation.ui.model.SupportDeskUIModel" />
+            app:argType="kpk.dev.presentation.model.GitHubRepoUiModel" />
     </fragment>
 </navigation>

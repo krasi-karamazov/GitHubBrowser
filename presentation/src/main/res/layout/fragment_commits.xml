@@ -24,9 +24,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:viewModel="@{viewModel}"
-            app:items="@{viewModel.supportDeskObservableArrayList}"
-            tools:listitem="@layout/item_staff_member" />
+            tools:listitem="@layout/item_commit" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
