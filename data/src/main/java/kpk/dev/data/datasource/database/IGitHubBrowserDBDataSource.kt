@@ -4,15 +4,15 @@ import kpk.dev.data.db.tables.GitHubBrowserEntity
 
 interface IGitHubBrowserDBDataSource {
 
-    fun getRepositories() : List<GitHubBrowserEntity.Repository>
+    suspend fun getRepositories() : List<GitHubBrowserEntity.Repository>
 
-    fun saveRepositoriesToDB(items: List<GitHubBrowserEntity.Repository>)
+    suspend fun saveRepositoriesToDB(items: List<GitHubBrowserEntity.Repository>)
 
-    fun getCommits(repoName: String) : List<GitHubBrowserEntity.Commit>
+    suspend fun getCommits(repoName: String) : List<GitHubBrowserEntity.Commit>
 
-    fun saveCommitsToDB(items: List<GitHubBrowserEntity.Commit>)
+    suspend fun saveCommitsToDB(items: List<GitHubBrowserEntity.Commit>)
 
-    fun deleteRepository(repo: GitHubBrowserEntity.Repository)
+    suspend fun deleteRepository(repo: GitHubBrowserEntity.Repository)
 
-    fun deleteAllRepositories()
+    suspend fun deleteAllRepositories()
 }

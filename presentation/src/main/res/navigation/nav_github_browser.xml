@@ -23,6 +23,6 @@
         tools:layout="@layout/fragment_commits">
         <argument
             android:name="repoName"
-            app:argType="kpk.dev.presentation.model.GitHubRepoUiModel" />
+            app:argType="string" />
     </fragment>
 </navigation>

@@ -1,6 +1,7 @@
 package kpk.dev.presentation.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
@@ -11,7 +12,7 @@ import kpk.dev.presentation.BR
 import kpk.dev.presentation.base.BaseViewModel
 import kpk.dev.presentation.base.ItemClickHandlerViewModel
 
-class UniversalRecyclerViewAdapter<T : OnClickAction>(
+class UniversalRecyclerViewAdapter<T : OnClickActionModel>(
     private val viewModel: ItemClickHandlerViewModel<T>,
     private val items: ObservableArrayList<T>,
     private val itemLayoutId: Int
@@ -62,17 +63,17 @@ class UniversalRecyclerViewAdapter<T : OnClickAction>(
         holder.bind(item)
     }
 
+    override fun getItemCount(): Int = items.size
+
     class RecyclerItemViewHolder<T>(
         private val binding: ViewDataBinding,
-        private val viewModel: BaseViewModel
+        private val viewModel: ItemClickHandlerViewModel<T>
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: T) {
-            binding.setVariable(BR.viewModel, viewModel)
             binding.setVariable(BR.item, item)
+            binding.root.setOnClickListener {viewModel.onItemSelected(item)}
             binding.executePendingBindings()
         }
     }
-
-    override fun getItemCount(): Int = items.size
 }

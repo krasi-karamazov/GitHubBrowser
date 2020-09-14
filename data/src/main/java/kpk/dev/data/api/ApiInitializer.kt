@@ -24,8 +24,8 @@ class ApiInitializer @Inject constructor() {
         val bodyLoggingInterceptor = HttpLoggingInterceptor()
         bodyLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         return OkHttpClient.Builder()
-            .addInterceptor(bodyLoggingInterceptor)
             .build()
+
     }
 
     fun getApiService(): ApiService = retrofitInstance.create(ApiService::class.java)

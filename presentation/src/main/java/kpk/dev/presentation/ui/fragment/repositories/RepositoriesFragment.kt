@@ -23,8 +23,8 @@ class RepositoriesFragment : BaseFragment<FragmentRepositoriesBinding, Repositor
         viewModel.subscribe(Observer {
             when (it.navDirections) {
                 NavigationDirs.COMMITS -> {
-                    /*findNavController()
-                        .navigate(HomeFragmentDirections.navigateToDetailsAction(data as SupportDeskUIModel))*/
+                    findNavController()
+                        .navigate(RepositoriesFragmentDirections.navigateToCommitsAction((it.data as GitHubRepoUiModel).name))
                 }
             }
         }, this)
