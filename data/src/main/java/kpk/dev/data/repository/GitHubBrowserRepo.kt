@@ -1,6 +1,5 @@
 package kpk.dev.data.repository
 
-import android.util.Log
 import kotlinx.coroutines.withContext
 import kpk.dev.data.datasource.database.IGitHubBrowserDBDataSource
 import kpk.dev.data.datasource.remote.IGitHubBrowserRemoteDataSource
@@ -21,10 +20,8 @@ class GitHubBrowserRepo @Inject constructor(
         return withContext(coroutineDispatcherProvider.iO) {
             val result = dbDataSource.getRepositories()
             if(result.isNotEmpty() || initialLoad) {
-                Log.d("Load", "Db")
                 ResponseModel.Success(result.map { it.map() })
             } else {
-                Log.d("Load", "remote")
                 when (val remoteResult = remoteDataSource.getRepositories(user)) {
                     is ResponseModel.Success -> {
                         dbDataSource.saveRepositoriesToDB(remoteResult.responseData?.map { it.map() } ?: emptyList())

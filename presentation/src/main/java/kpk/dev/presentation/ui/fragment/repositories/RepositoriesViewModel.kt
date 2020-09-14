@@ -3,7 +3,6 @@ package kpk.dev.presentation.ui.fragment.repositories
 import android.content.SharedPreferences
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import androidx.databinding.ObservableArrayList
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
@@ -51,16 +50,13 @@ class RepositoriesViewModel @ViewModelInject constructor(
                     gitHubReposObservableList.addAll(result.responseData?.map {
                         val uiRepo = it.map()
                         GlobalScope.launch {
-                            Log.d("Repo", "loading commits ")
                             //This delay is just for fun, to see how the list updates when the commits are ready
                             delay(1000)
                             handleCommitsResult(
                                 gitHubBrowserUseCase.getCommits(user, uiRepo.name),
                                 uiRepo
                             )
-                            Log.d("Repo", "loaded commits " + uiRepo.name)
                         }
-                        Log.d("Repo", "repo loaded " + uiRepo.name)
                         uiRepo
                     } ?: emptyList())
                     if (gitHubReposObservableList.isEmpty()) {
