@@ -15,5 +15,5 @@ class GitHubBrowserUseCase @Inject constructor(private val repo: IGitHubBrowserR
         repoName: String
     ): ResponseModel<List<CommitItem>> = repo.getCommits(user, repoName)
 
-
+    override suspend fun clearDb(): ResponseModel<Unit> = repo.clearDb()
 }

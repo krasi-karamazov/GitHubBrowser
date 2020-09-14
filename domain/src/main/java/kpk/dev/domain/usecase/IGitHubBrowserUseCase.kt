@@ -8,4 +8,5 @@ interface IGitHubBrowserUseCase {
 
     suspend fun getRepositories(user: String, initialLoad: Boolean): ResponseModel<List<GitHubRepoItem>>
     suspend fun getCommits(user: String, repoName: String): ResponseModel<List<CommitItem>>
+    suspend fun clearDb(): ResponseModel<Unit>
 }

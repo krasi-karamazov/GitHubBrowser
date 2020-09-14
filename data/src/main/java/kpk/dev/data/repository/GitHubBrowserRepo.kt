@@ -1,5 +1,6 @@
 package kpk.dev.data.repository
 
+import android.util.Log
 import kotlinx.coroutines.withContext
 import kpk.dev.data.datasource.database.IGitHubBrowserDBDataSource
 import kpk.dev.data.datasource.remote.IGitHubBrowserRemoteDataSource
@@ -20,8 +21,10 @@ class GitHubBrowserRepo @Inject constructor(
         return withContext(coroutineDispatcherProvider.iO) {
             val result = dbDataSource.getRepositories()
             if(result.isNotEmpty() || initialLoad) {
+                Log.d("Load", "Db")
                 ResponseModel.Success(result.map { it.map() })
             } else {
+                Log.d("Load", "remote")
                 when (val remoteResult = remoteDataSource.getRepositories(user)) {
                     is ResponseModel.Success -> {
                         dbDataSource.saveRepositoriesToDB(remoteResult.responseData?.map { it.map() } ?: emptyList())
@@ -46,7 +49,11 @@ class GitHubBrowserRepo @Inject constructor(
             } else {
                 when (val remoteResult = remoteDataSource.getCommits(user, repoName)) {
                     is ResponseModel.Success -> {
-                        dbDataSource.saveCommitsToDB(remoteResult.responseData?.map { it.map(repoName) } ?: emptyList())
+                        dbDataSource.saveCommitsToDB(remoteResult.responseData?.map {
+                            it.map(
+                                repoName
+                            )
+                        } ?: emptyList())
                         remoteResult
                     }
                     is ResponseModel.Failure -> {
@@ -54,6 +61,12 @@ class GitHubBrowserRepo @Inject constructor(
                     }
                 }
             }
+        }
+    }
+
+    override suspend fun clearDb(): ResponseModel<Unit> {
+        return withContext(coroutineDispatcherProvider.iO) {
+            ResponseModel.Success(dbDataSource.deleteAllRepositories())
         }
     }
 }

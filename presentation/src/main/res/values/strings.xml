@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="last_commit">Last commit</string>
+    <string name="error">An error occurred</string>
+    <string name="empty_result_prompt">The query returned an empty result. Try another one</string>
+</resources>
