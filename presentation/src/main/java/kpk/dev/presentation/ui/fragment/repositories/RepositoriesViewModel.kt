@@ -47,9 +47,7 @@ class RepositoriesViewModel @ViewModelInject constructor(
             }
             when (val result = gitHubBrowserUseCase.getRepositories(user, initialLoad)) {
                 is ResponseModel.Success -> {
-                    if (!gitHubReposObservableList.isEmpty()) {
-                        gitHubReposObservableList.clear()
-                    }
+                    clearObservableList()
                     gitHubReposObservableList.addAll(result.responseData?.map {
                         val uiRepo = it.map()
                         GlobalScope.launch {
@@ -76,8 +74,17 @@ class RepositoriesViewModel @ViewModelInject constructor(
         }
     }
 
-    private fun handleCommitsResult(responseModel: ResponseModel<List<CommitItem>>, repo: GitHubRepoUiModel) {
-        when(responseModel) {
+    private fun clearObservableList() {
+        if (!gitHubReposObservableList.isEmpty()) {
+            gitHubReposObservableList.clear()
+        }
+    }
+
+    private fun handleCommitsResult(
+        responseModel: ResponseModel<List<CommitItem>>,
+        repo: GitHubRepoUiModel
+    ) {
+        when (responseModel) {
             is ResponseModel.Success -> {
                 responseModel.responseData?.let { list ->
                     if (list.isNotEmpty()) {
