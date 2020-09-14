@@ -6,6 +6,7 @@ package kpk.dev.presentation.ui
  */
 sealed class ViewState {
     class Loading : ViewState()
-    class Fail(msg: String?) : ViewState()
+    class Fail(val msg: String?) : ViewState()
     class Success : ViewState()
+    class Empty : ViewState()
 }
